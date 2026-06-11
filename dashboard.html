@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin – Eduvision Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: #f8faf9; color: #1a2e2a; }
+
+    /* LOGIN SCREEN */
+    .login-screen {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #0a6b52, #1ca87e);
+    }
+    .login-card {
+      background: white; border-radius: 20px; padding: 48px 40px;
+      width: 380px; text-align: center;
+    }
+    .login-card h1 { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: #0a6b52; margin-bottom: 6px; }
+    .login-card p { font-size: 13px; color: #6a8a7e; margin-bottom: 28px; }
+    .login-card input {
+      width: 100%; padding: 12px 16px; margin-bottom: 14px;
+      border: 1.5px solid #d0ece4; border-radius: 10px;
+      font-family: 'DM Sans', sans-serif; font-size: 15px;
+      outline: none; background: #f8faf9;
+    }
+    .login-card input:focus { border-color: #0a6b52; background: white; }
+    .login-btn {
+      width: 100%; padding: 14px; background: #0a6b52; color: white;
+      border: none; border-radius: 50px; font-family: 'Syne', sans-serif;
+      font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.2s;
+    }
+    .login-btn:hover { background: #085040; }
+    .login-error { color: #c0392b; font-size: 13px; margin-top: 10px; display: none; }
+
+    /* DASHBOARD */
+    .dashboard { display: none; }
+
+    .top-bar {
+      background: white; padding: 16px 36px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1.5px solid #d0ece4; position: sticky; top: 0; z-index: 100;
+    }
+    .top-bar-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 16px; color: #0a6b52; }
+    .top-bar-sub { font-size: 11px; color: #e07c2a; font-style: italic; }
+    .logout-btn {
+      background: #f8faf9; border: 1.5px solid #d0ece4; color: #2e5c4a;
+      padding: 8px 18px; border-radius: 50px; font-size: 13px;
+      font-weight: 600; cursor: pointer;
+    }
+    .logout-btn:hover { background: #fdecea; border-color: #e07c2a; color: #c96d1f; }
+
+    .dash-content { padding: 36px; }
+
+    /* STATS */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .stat-card {
+      background: white; border-radius: 14px; padding: 20px 22px;
+      border: 1.5px solid #dceee8;
+    }
+    .stat-label { font-size: 12px; color: #6a8a7e; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+    .stat-value { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; color: #0a6b52; }
+    .stat-icon { font-size: 22px; margin-bottom: 8px; }
+
+    /* TABLE */
+    .table-card {
+      background: white; border-radius: 16px;
+      border: 1.5px solid #dceee8; overflow: hidden;
+    }
+    .table-header {
+      padding: 20px 24px; display: flex;
+      align-items: center; justify-content: space-between;
+      border-bottom: 1.5px solid #e8f7f2;
+    }
+    .table-title { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; color: #0d2e22; }
+    .table-actions { display: flex; gap: 10px; }
+
+    .search-input {
+      padding: 8px 14px; border: 1.5px solid #d0ece4; border-radius: 50px;
+      font-family: 'DM Sans', sans-serif; font-size: 13px;
+      outline: none; width: 200px; background: #f8faf9;
+    }
+    .search-input:focus { border-color: #0a6b52; }
+
+    .filter-select {
+      padding: 8px 14px; border: 1.5px solid #d0ece4; border-radius: 50px;
+      font-family: 'DM Sans', sans-serif; font-size: 13px;
+      outline: none; background: #f8faf9; cursor: pointer;
+    }
+
+    .export-btn {
+      padding: 8px 16px; background: #0a6b52; color: white;
+      border: none; border-radius: 50px; font-size: 13px;
+      font-weight: 600; cursor: pointer;
+    }
+    .export-btn:hover { background: #085040; }
+
+    table { width: 100%; border-collapse: collapse; }
+    thead { background: #f0faf5; }
+    thead th {
+      text-align: left; padding: 12px 20px;
+      font-size: 11px; font-weight: 700; color: #0a6b52;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    tbody tr { border-top: 1px solid #f0faf5; transition: background 0.15s; }
+    tbody tr:hover { background: #f8fdf9; }
+    tbody td { padding: 14px 20px; font-size: 14px; color: #1a2e2a; }
+
+    .badge {
+      display: inline-block; padding: 4px 12px; border-radius: 50px;
+      font-size: 11px; font-weight: 700;
+    }
+    .badge-pending { background: #fff4e6; color: #c96d1f; }
+    .badge-confirmed { background: #e8f7f2; color: #0a6b52; }
+    .badge-cancelled { background: #fdecea; color: #c0392b; }
+
+    .action-btn {
+      padding: 5px 12px; border-radius: 50px; font-size: 12px;
+      font-weight: 600; cursor: pointer; border: 1.5px solid;
+      margin-right: 4px;
+    }
+    .btn-confirm { color: #0a6b52; border-color: #9fdcc8; background: #f0faf5; }
+    .btn-confirm:hover { background: #e8f7f2; }
+    .btn-delete { color: #c0392b; border-color: #f5c6c6; background: #fdecea; }
+    .btn-delete:hover { background: #fbd5d5; }
+
+    .empty-state {
+      text-align: center; padding: 60px 20px;
+      color: #6a8a7e;
+    }
+    .empty-state div { font-size: 40px; margin-bottom: 14px; }
+    .empty-state p { font-size: 15px; }
+    .empty-state a {
+      display: inline-block; margin-top: 16px;
+      background: #0a6b52; color: white; padding: 10px 24px;
+      border-radius: 50px; font-size: 13px; font-weight: 600;
+      text-decoration: none;
+    }
+
+    footer {
+      background: #072e22; padding: 18px 36px;
+      display: flex; justify-content: space-between;
+    }
+    footer span { font-size: 12px; color: rgba(255,255,255,0.4); }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-card">
+      <div style="font-size:36px; margin-bottom:14px">🔐</div>
+      <h1>Admin Login</h1>
+      <p>Eduvision Academy staff only</p>
+      <input type="text" id="adminUser" placeholder="Username"/>
+      <input type="password" id="adminPass" placeholder="Password"/>
+      <button class="login-btn" onclick="doLogin()">Login to Dashboard</button>
+      <div class="login-error" id="loginError">❌ Wrong username or password</div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="dashboard" id="dashboard">
+
+    <div class="top-bar">
+      <div>
+        <div class="top-bar-logo">EDUVISION ACADEMY — Admin Panel</div>
+        <div class="top-bar-sub">Staff access only</div>
+      </div>
+      <div style="display:flex; gap:12px; align-items:center">
+        <a href="index.html" style="font-size:13px; color:#2e5c4a; text-decoration:none">← View Website</a>
+        <button class="logout-btn" onclick="doLogout()">Logout</button>
+      </div>
+    </div>
+
+    <div class="dash-content">
+
+      <!-- STATS -->
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-card">
+          <div class="stat-icon">👥</div>
+          <div class="stat-label">Total Students</div>
+          <div class="stat-value" id="statTotal">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⏳</div>
+          <div class="stat-label">Pending</div>
+          <div class="stat-value" id="statPending">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">✅</div>
+          <div class="stat-label">Confirmed</div>
+          <div class="stat-value" id="statConfirmed">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📚</div>
+          <div class="stat-label">Top Course</div>
+          <div class="stat-value" style="font-size:15px; margin-top:4px" id="statTop">—</div>
+        </div>
+      </div>
+
+      <!-- TABLE -->
+      <div class="table-card">
+        <div class="table-header">
+          <div class="table-title">📋 Enrolled Students</div>
+          <div class="table-actions">
+            <input class="search-input" type="text" placeholder="Search student..." oninput="renderTable()" id="searchBox"/>
+            <select class="filter-select" onchange="renderTable()" id="filterCourse">
+              <option value="">All Courses</option>
+              <option>English / Icyongereza</option>
+              <option>French / Igifaransa</option>
+              <option>Chinese / Igishinwa</option>
+              <option>Driving License</option>
+              <option>Computer Skills</option>
+              <option>Photography</option>
+              <option>Videography</option>
+              <option>Graphic Design</option>
+            </select>
+            <button class="export-btn" onclick="exportCSV()">⬇ Export CSV</button>
+          </div>
+        </div>
+        <div id="tableBody"></div>
+      </div>
+
+    </div>
+
+    <footer>
+      <span>© 2026 Eduvision Academy Admin Panel</span>
+      <span>0788 672 955</span>
+    </footer>
+  </div>
+
+  <script>
+    // ── LOGIN ──────────────────────────────────────────
+    async function doLogin() {
+      const u = document.getElementById('adminUser').value.trim();
+      const p = document.getElementById('adminPass').value.trim();
+      
+      if (!u || !p) {
+        document.getElementById('loginError').style.display = 'block';
+        return;
+      }
+
+      const btn = document.querySelector('.login-btn');
+      const errorMsg = document.getElementById('loginError');
+      errorMsg.style.display = 'none';
+      btn.textContent = 'Checking...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: u, password: p })
+        });
+        
+        const data = await res.json();
+        
+        if (data.ok) {
+          document.getElementById('loginScreen').style.display = 'none';
+          document.getElementById('dashboard').style.display = 'block';
+          await fetchStudents();
+          renderTable();
+          renderStats();
+        } else {
+          errorMsg.style.display = 'block';
+          btn.textContent = 'Login to Dashboard';
+          btn.disabled = false;
+        }
+      } catch (err) {
+        errorMsg.textContent = '❌ Network error. Please try again.';
+        errorMsg.style.display = 'block';
+        btn.textContent = 'Login to Dashboard';
+        btn.disabled = false;
+      }
+    }
+
+    function doLogout() {
+      document.getElementById('loginScreen').style.display = 'flex';
+      document.getElementById('dashboard').style.display = 'none';
+      document.getElementById('adminUser').value = '';
+      document.getElementById('adminPass').value = '';
+      document.getElementById('loginError').style.display = 'none';
+    }
+
+    // Allow pressing Enter to login
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Enter') doLogin();
+    });
+
+    // ── DATA ───────────────────────────────────────────
+    let studentCache = [];
+
+    async function fetchStudents() {
+      const response = await fetch('/api/students');
+      if (!response.ok) {
+        throw new Error('Unable to load students');
+      }
+      studentCache = await response.json();
+      return studentCache;
+    }
+
+    function getStudents() {
+      return studentCache;
+    }
+
+    function setStudents(arr) {
+      studentCache = arr;
+    }
+
+    // ── STATS ──────────────────────────────────────────
+    function renderStats() {
+      const students = getStudents();
+      document.getElementById('statTotal').textContent = students.length;
+      document.getElementById('statPending').textContent =
+        students.filter(s => s.status === 'Pending').length;
+      document.getElementById('statConfirmed').textContent =
+        students.filter(s => s.status === 'Confirmed').length;
+
+      // Find top course
+      const counts = {};
+      students.forEach(s => { counts[s.course] = (counts[s.course] || 0) + 1; });
+      const top = Object.entries(counts).sort((a, b) => b[1] - a[1])[0];
+      document.getElementById('statTop').textContent = top ? top[0].split('/')[0].trim() : '—';
+    }
+
+    // ── TABLE ──────────────────────────────────────────
+    async function renderTable() {
+      const search = document.getElementById('searchBox').value.toLowerCase();
+      const filter = document.getElementById('filterCourse').value;
+      let students  = getStudents();
+
+      if (filter) students = students.filter(s => s.course === filter);
+      if (search) students = students.filter(s =>
+        (s.firstName + ' ' + s.lastName + ' ' + s.phone + ' ' + s.course)
+          .toLowerCase().includes(search)
+      );
+
+      const container = document.getElementById('tableBody');
+
+      if (students.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div>📭</div>
+            <p>No students enrolled yet.</p>
+            <a href="enroll.html">Go to Enrollment Form</a>
+          </div>`;
+        return;
+      }
+
+      let html = `
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Course</th>
+              <th>Schedule</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>`;
+
+      students.forEach((s, i) => {
+        const badgeClass =
+          s.status === 'Confirmed' ? 'badge-confirmed' :
+          s.status === 'Cancelled' ? 'badge-cancelled' : 'badge-pending';
+
+        html += `
+          <tr>
+            <td style="color:#9ab8ae">${i + 1}</td>
+            <td><strong>${s.firstName} ${s.lastName}</strong>
+              ${s.email ? `<br><span style="font-size:12px;color:#9ab8ae">${s.email}</span>` : ''}
+            </td>
+            <td>${s.phone}</td>
+            <td>${s.course}</td>
+            <td style="font-size:13px;color:#6a8a7e">${s.schedule || '—'}</td>
+            <td style="font-size:13px;color:#9ab8ae">${s.date}</td>
+            <td><span class="badge ${badgeClass}">${s.status}</span></td>
+            <td>
+              <button class="action-btn btn-confirm" onclick="confirmStudent(${s.id})">✓ Confirm</button>
+              <button class="action-btn btn-delete" onclick="deleteStudent(${s.id})">✕ Delete</button>
+            </td>
+          </tr>`;
+      });
+
+      html += `</tbody></table>`;
+      container.innerHTML = html;
+      renderStats();
+    }
+
+    // ── ACTIONS ────────────────────────────────────────
+    async function confirmStudent(id) {
+      try {
+        const response = await fetch(`/api/students/${id}/confirm`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' }
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+          alert(data.error || 'Unable to confirm student');
+          return;
+        }
+        
+        await fetchStudents();
+        renderTable();
+        renderStats();
+      } catch (err) {
+        alert('Network error. Please try again.');
+      }
+    }
+
+    async function deleteStudent(id) {
+      if (!confirm('⚠️ Are you sure you want to delete this student? This cannot be undone.')) {
+        return;
+      }
+      
+      try {
+        const response = await fetch(`/api/students/${id}`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' }
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+          alert(data.error || 'Unable to delete student');
+          return;
+        }
+        
+        await fetchStudents();
+        renderTable();
+        renderStats();
+      } catch (err) {
+        alert('Network error. Please try again.');
+      }
+    }
+
+    // ── EXPORT CSV ─────────────────────────────────────
+    function exportCSV() {
+      const students = getStudents();
+      if (students.length === 0) { 
+        alert('No students to export.'); 
+        return; 
+      }
+
+      // Helper to properly escape CSV values
+      function escapeCSV(val) {
+        if (val === null || val === undefined) return '';
+        const str = String(val);
+        if (str.includes(',') || str.includes('"') || str.includes('\n')) {
+          return '"' + str.replace(/"/g, '""') + '"';
+        }
+        return str;
+      }
+
+      const headers = ['#','First Name','Last Name','Phone','Email','Age','Gender','Course','Schedule','Date','Status'];
+      const rows = students.map((s, i) => [
+        i+1, 
+        s.firstName, 
+        s.lastName, 
+        s.phone,
+        s.email||'', 
+        s.age||'', 
+        s.gender||'',
+        s.course, 
+        s.schedule||'', 
+        s.date, 
+        s.status
+      ]);
+
+      const csv = [headers, ...rows]
+        .map(r => r.map(escapeCSV).join(','))
+        .join('\n');
+
+      const a = document.createElement('a');
+      a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+      a.download = `eduvision_students_${new Date().toISOString().split('T')[0]}.csv`;
+      a.click();
+    }
+  </script>
+
+</body>
+</html>

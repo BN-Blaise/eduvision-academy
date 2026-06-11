@@ -1,0 +1,291 @@
+════════════════════════════════════════════════════════════════
+EDUVISION ACADEMY — COMPLETE SETUP & HOSTING GUIDE
+════════════════════════════════════════════════════════════════
+
+WHAT YOU HAVE
+─────────────
+A complete web application with:
+✓ Public website (landing page + courses)
+✓ Enrollment form for students
+✓ Admin dashboard to manage enrollments
+✓ Backend server (Node.js + Express)
+✓ Student database (JSON file storage)
+
+PROJECT FILES
+─────────────
+index.html       → Public website (home page)
+enroll.html      → Student enrollment form
+dashboard.html   → Admin panel (protected login)
+server.js        → Backend Node.js server
+package.json     → Dependencies list
+.gitignore       → Protects sensitive data on GitHub
+
+
+PHASE 1: TEST LOCALLY (15 minutes)
+══════════════════════════════════
+
+REQUIREMENTS
+─ Node.js v14+ (download from nodejs.org)
+─ Git (download from git-scm.com) — optional but recommended
+
+STEPS
+─────
+1. Extract all files to a folder called "eduvision-academy"
+
+2. Open Terminal/Command Prompt in that folder
+
+3. Install dependencies:
+   npm install
+
+4. Start the server:
+   npm start
+
+5. Open your browser and visit:
+   http://localhost:3000
+
+   You should see:
+   ✓ The homepage with courses
+   ✓ Enrollment form (click Enroll)
+   ✓ Admin dashboard at: http://localhost:3000/dashboard.html
+
+6. Test the workflow:
+   
+   A) Fill the enrollment form and submit
+      → Should see "✓ Enrollment Received!"
+      → Data saved to data/students.json
+   
+   B) Visit admin dashboard and login
+      → Username: admin
+      → Password: eduvision2026
+      → Should see the student you just enrolled
+
+7. Try the admin actions:
+   ✓ Confirm student (changes status to "Confirmed")
+   ✓ Delete student (removes from list)
+   ✓ Export CSV (downloads spreadsheet)
+   ✓ Search/filter students
+
+If everything works → proceed to Phase 2
+
+
+PHASE 2: PREPARE FOR HOSTING (10 minutes)
+═════════════════════════════════════════
+
+CHANGE THE ADMIN PASSWORD
+──────────────────────────
+NEVER use the default password in production.
+
+Option A: Change it in server.js (before uploading to GitHub)
+  Edit server.js line 17-18:
+  const ADMIN_USER = 'admin';
+  const ADMIN_PASS = 'your-new-strong-password';
+
+Option B: Use environment variables (recommended for Render)
+  You'll do this in Phase 3 when deploying
+
+PREPARE YOUR GITHUB ACCOUNT
+────────────────────────────
+1. Go to github.com and create a free account
+2. Create a new repository called "eduvision-academy"
+3. Upload your files there (instructions in Phase 3)
+
+
+PHASE 3: DEPLOY TO RENDER.COM (FREE) (20 minutes)
+══════════════════════════════════════════════════
+
+Render.com gives you:
+✓ Free Node.js hosting
+✓ Custom domain support
+✓ Auto-restarts if server crashes
+✓ Easy deployment from GitHub
+
+STEP 1: PREPARE YOUR CODE FOR GITHUB
+─────────────────────────────────────
+1. Make sure you have a .gitignore file with:
+   node_modules/
+   data/
+   .env
+
+2. Create an .env file (if using environment variables):
+   ADMIN_USER=admin
+   ADMIN_PASS=your-secure-password
+
+3. Do NOT commit node_modules/ to GitHub
+
+STEP 2: UPLOAD TO GITHUB
+────────────────────────
+Option A: Using Git command line
+─ Open Terminal in your project folder
+─ Run:
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git branch -M main
+   git remote add origin https://github.com/YOUR_USERNAME/eduvision-academy.git
+   git push -u origin main
+
+Option B: Upload via GitHub website
+─ Go to github.com → Your repository
+─ Click "Add file" → "Upload files"
+─ Drag and drop all files EXCEPT node_modules/
+
+STEP 3: DEPLOY ON RENDER
+────────────────────────
+1. Go to render.com
+2. Click "Sign up" → Choose "Sign up with GitHub"
+3. Connect your GitHub account
+4. Click "New +" → Select "Web Service"
+5. Choose your "eduvision-academy" repository
+6. Fill in these settings:
+   
+   Name: eduvision-academy
+   Environment: Node
+   Build Command: npm install
+   Start Command: npm start
+   
+7. Click "Create Web Service"
+
+8. Wait ~2 minutes for deployment
+   You'll see: "Your service is live at: https://eduvision-academy.onrender.com"
+
+STEP 4: ADD ENVIRONMENT VARIABLES (IMPORTANT!)
+───────────────────────────────────────────────
+In Render dashboard:
+1. Go to your service → Settings
+2. Scroll to "Environment"
+3. Add variables:
+   ADMIN_USER = admin
+   ADMIN_PASS = your-secure-password
+
+4. Save and Render will restart with new credentials
+
+YOUR SITE IS NOW LIVE!
+─────────────────────
+Visit: https://eduvision-academy.onrender.com
+
+Test:
+✓ Homepage loads with courses
+✓ Enrollment form works
+✓ Admin login at /dashboard.html works
+
+
+CONNECTING YOUR CUSTOM DOMAIN (Optional)
+═════════════════════════════════════════
+
+If you own eduvisionacademy.ac.rw:
+
+1. In Render dashboard → Your service → Settings
+2. Scroll to "Custom Domains"
+3. Add your domain: eduvisionacademy.ac.rw
+4. Render will show you DNS records to add
+5. Login to your domain provider (GoDaddy, Namecheap, etc.)
+6. Add the DNS records
+7. Wait 24 hours for DNS to propagate
+8. Your site will be at: https://eduvisionacademy.ac.rw
+
+
+IMPORTANT NOTES
+═══════════════
+
+FREE TIER LIMITATIONS
+──────────────────────
+✗ Render's free tier has some limitations:
+  - Server "sleeps" after 15 minutes of inactivity
+  - First visitor waits 20-30 seconds to wake up
+  - Data resets when you redeploy
+
+SOLUTION
+─ Upgrade to Paid Plan ($7/month) for always-on server
+  OR
+- Migrate to database (MongoDB Atlas) for permanent data storage
+
+DATA STORAGE (Important!)
+──────────────────────────
+Currently, student data is saved to "data/students.json" on the server.
+
+Problem: On Render's free tier, this file gets deleted when you redeploy.
+
+Solution options:
+1. Upgrade to paid Render plan ($7/month)
+2. Migrate to free database:
+   - MongoDB Atlas (free tier)
+   - Supabase PostgreSQL (free tier)
+   (Ask for help implementing this)
+
+UPDATING YOUR CODE
+───────────────────
+Every time you make changes:
+
+1. Update files on your computer
+2. Commit to GitHub:
+   git add .
+   git commit -m "Description of changes"
+   git push origin main
+
+3. Render auto-deploys! (takes 2-3 minutes)
+4. Check the deployment log to ensure it succeeded
+
+
+SECURITY CHECKLIST
+══════════════════
+Before going live:
+
+✓ Change admin password (not "eduvision2026")
+✓ Enable HTTPS (Render does this automatically)
+✓ Use environment variables for credentials
+✓ Keep .gitignore to hide sensitive files
+✓ Use strong, unique passwords
+
+
+TROUBLESHOOTING
+═══════════════
+
+"Can't connect to localhost:3000"
+→ Make sure you ran: npm install && npm start
+→ Check Terminal for error messages
+
+"Enrollment form doesn't work locally"
+→ Check browser console (F12) for errors
+→ Make sure server.js is running
+
+"Admin login fails"
+→ Make sure you're using correct username/password
+→ Clear browser cache (Ctrl+Shift+Delete)
+
+"Website works locally but not on Render"
+→ Check Render deployment logs
+→ Make sure package.json is in root folder
+→ Make sure start command is "npm start"
+
+"Data disappears after redeployment"
+→ This is normal on free Render tier
+→ Upgrade plan or use database
+
+
+SUPPORT & NEXT STEPS
+════════════════════
+
+Contact Eduvision:
+📞 0788 672 955
+📧 eduvisionacademy25@gmail.com
+
+If you need help with:
+- Database setup (MongoDB/Supabase)
+- Custom domain configuration
+- Email notifications
+- Mobile app version
+→ Contact support above
+
+
+CONGRATULATIONS! 🎉
+═══════════════════
+Your enrollment system is now live and ready to accept students!
+
+Next steps:
+1. Test thoroughly with real data
+2. Share the link with students
+3. Monitor the admin dashboard regularly
+4. Back up your student data periodically
+
+Thank you for using Eduvision Academy!
+════════════════════════════════════════════════════════════════

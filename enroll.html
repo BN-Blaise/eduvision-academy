@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Enroll – Eduvision Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: #f8faf9; color: #1a2e2a; }
+
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 40px; background: white;
+      border-bottom: 1.5px solid #d0ece4;
+    }
+    .logo-text { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; color: #0a6b52; }
+    .logo-sub { font-size: 11px; color: #e07c2a; font-style: italic; }
+    nav a { text-decoration: none; font-size: 14px; color: #2e5c4a; font-weight: 500; }
+    nav a:hover { color: #e07c2a; }
+
+    .page-header {
+      background: linear-gradient(135deg, #0a6b52, #1ca87e);
+      padding: 50px; text-align: center; color: white;
+    }
+    .page-header h1 { font-family: 'Syne', sans-serif; font-size: 38px; font-weight: 800; margin-bottom: 10px; }
+    .page-header p { font-size: 16px; color: rgba(255,255,255,0.8); }
+
+    .form-container {
+      max-width: 640px; margin: 50px auto; padding: 0 20px 60px;
+    }
+
+    .form-card {
+      background: white; border-radius: 20px;
+      border: 1.5px solid #dceee8; padding: 40px;
+    }
+
+    .form-section-title {
+      font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700;
+      color: #0a6b52; margin-bottom: 20px; padding-bottom: 10px;
+      border-bottom: 1.5px solid #e8f7f2;
+    }
+
+    .form-group { margin-bottom: 20px; }
+
+    label {
+      display: block; font-size: 13px; font-weight: 600;
+      color: #2e5c4a; margin-bottom: 7px; text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    input, select, textarea {
+      width: 100%; padding: 12px 16px;
+      border: 1.5px solid #d0ece4; border-radius: 10px;
+      font-family: 'DM Sans', sans-serif; font-size: 15px;
+      color: #1a2e2a; background: #f8faf9;
+      outline: none; transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #0a6b52; background: white;
+    }
+
+    textarea { resize: vertical; min-height: 100px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .spacer { margin-top: 28px; }
+
+    .submit-btn {
+      width: 100%; padding: 16px;
+      background: #0a6b52; color: white;
+      border: none; border-radius: 50px;
+      font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700;
+      cursor: pointer; margin-top: 28px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .submit-btn:hover { background: #085040; transform: translateY(-2px); }
+
+    .success-box {
+      display: none;
+      background: #e8f7f2; border: 1.5px solid #9fdcc8;
+      border-radius: 14px; padding: 24px; text-align: center; margin-top: 24px;
+    }
+    .success-box h3 { font-family: 'Syne', sans-serif; color: #0a6b52; font-size: 20px; margin-bottom: 8px; }
+    .success-box p { color: #2e5c4a; font-size: 14px; }
+
+    .required { color: #e07c2a; }
+
+    footer {
+      background: #072e22; padding: 20px 50px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    footer span { font-size: 12px; color: rgba(255,255,255,0.4); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div>
+      <div class="logo-text">EDUVISION ACADEMY</div>
+      <div class="logo-sub">Rapid Solution of Fluency and Creativity</div>
+    </div>
+      <a href="index.html">← Back to Home</a>
+  </nav>
+
+  <div class="form-container">
+    <div class="form-card">
+
+      <!-- PERSONAL INFO -->
+      <div class="form-section-title">👤 Personal Information</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name <span class="required">*</span></label>
+          <input type="text" id="firstName" placeholder="e.g. Amina"/>
+        </div>
+        <div class="form-group">
+          <label>Last Name <span class="required">*</span></label>
+          <input type="text" id="lastName" placeholder="e.g. Uwase"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Phone Number <span class="required">*</span></label>
+        <input type="tel" id="phone" placeholder="e.g. 0788 123 456"/>
+      </div>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="email" placeholder="e.g. amina@gmail.com"/>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Age</label>
+          <input type="number" id="age" placeholder="e.g. 22" min="10" max="80"/>
+        </div>
+        <div class="form-group">
+          <label>Gender</label>
+          <select id="gender">
+            <option value="">Select...</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Prefer not to say</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- COURSE SELECTION -->
+      <div class="form-section-title spacer">📚 Course Selection</div>
+
+      <div class="form-group">
+        <label>Choose a Course <span class="required">*</span></label>
+        <select id="course">
+          <option value="">Select a course...</option>
+          <optgroup label="Languages">
+            <option>English / Icyongereza</option>
+            <option>French / Igifaransa</option>
+            <option>Chinese / Igishinwa</option>
+          </optgroup>
+          <optgroup label="Driving">
+            <option>Driving License</option>
+          </optgroup>
+          <optgroup label="Technology">
+            <option>Computer Skills</option>
+          </optgroup>
+          <optgroup label="Creative Arts">
+            <option>Photography</option>
+            <option>Videography</option>
+            <option>Graphic Design</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Preferred Schedule</label>
+        <select id="schedule">
+          <option value="">Select...</option>
+          <option>Morning (8am – 12pm)</option>
+          <option>Afternoon (12pm – 4pm)</option>
+          <option>Evening (4pm – 7pm)</option>
+          <option>Weekend only</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Any Message or Questions?</label>
+        <textarea id="message" placeholder="e.g. I am a complete beginner, is that okay?"></textarea>
+      </div>
+
+      <button class="submit-btn" onclick="submitForm()" id="submitEnrollmentBtn">
+        Submit Enrollment ✓
+      </button>
+
+      <!-- SUCCESS MESSAGE -->
+      <div class="success-box" id="successBox">
+        <h3>🎉 Enrollment Received!</h3>
+        <p>Thank you! We will call you on your phone number within 24 hours to confirm your enrollment.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2026 Eduvision Academy · Kigali, Rwanda</span>
+    <span>0788 672 955</span>
+  </footer>
+
+  <script>
+    // Form validation helper
+    function validateForm() {
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const course = document.getElementById('course').value;
+
+      let error = '';
+
+      if (!firstName) error = 'Please enter your first name';
+      else if (!lastName) error = 'Please enter your last name';
+      else if (!phone) error = 'Please enter your phone number';
+      else if (phone.replace(/\D/g, '').length < 9) error = 'Phone number must be at least 9 digits';
+      else if (!course) error = 'Please select a course';
+
+      const email = document.getElementById('email').value.trim();
+      if (email && !email.includes('@')) error = 'Please enter a valid email address';
+
+      if (error) {
+        showError(error);
+        return false;
+      }
+      return true;
+    }
+
+    function showError(msg) {
+      const errorBox = document.createElement('div');
+      errorBox.style.cssText = `
+        position: fixed; top: 20px; right: 20px; z-index: 9999;
+        background: #fdecea; color: #c0392b; padding: 16px 20px;
+        border-radius: 8px; border: 1.5px solid #f5c6c6;
+        font-size: 14px; max-width: 300px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      `;
+      errorBox.innerHTML = `❌ ${msg}`;
+      document.body.appendChild(errorBox);
+      setTimeout(() => errorBox.remove(), 4000);
+    }
+
+    async function submitForm() {
+      if (!validateForm()) return;
+
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const course = document.getElementById('course').value;
+
+      const payload = {
+        firstName,
+        lastName,
+        phone,
+        email: document.getElementById('email').value.trim(),
+        age: document.getElementById('age').value.trim(),
+        gender: document.getElementById('gender').value,
+        course,
+        schedule: document.getElementById('schedule').value,
+        message: document.getElementById('message').value.trim()
+      };
+
+      const btn = document.getElementById('submitEnrollmentBtn');
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+
+      try {
+        const response = await fetch('/api/enroll', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          showError(data.error || 'Enrollment failed');
+          btn.disabled = false;
+          btn.textContent = 'Submit Enrollment ✓';
+          return;
+        }
+
+        // Success!
+        document.getElementById('submitEnrollmentBtn').style.display = 'none';
+        document.getElementById('successBox').style.display = 'block';
+        document.querySelectorAll('input, select, textarea').forEach(el => el.value = '');
+
+      } catch (err) {
+        showError('Network error. Please check your connection and try again.');
+        btn.disabled = false;
+        btn.textContent = 'Submit Enrollment ✓';
+      }
+    }
+
+    // Allow Enter key to submit
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && document.activeElement.id === 'message') {
+        e.preventDefault();
+        submitForm();
+      }
+    });
+  </script>
+
+</body>
+</html>
