@@ -7,36 +7,42 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-       /* Container styling */
-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  font-family: Arial, sans-serif;
-}
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      font-family: 'DM Sans', Arial, sans-serif;
+      width: 100%;
+      overflow-x: hidden;
+    }
 
     /* NAV */
     nav {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 16px 40px; background: white;
+      padding: 16px 40px; background: white; width: 100%;
       border-bottom: 1.5px solid #d0ece4; position: sticky; top: 0; z-index: 100;
+      flex-wrap: wrap; gap: 12px;
     }
+    .nav-brand { display: flex; align-items: center; gap: 10px; }
+    .nav-brand img { max-width: 44px; height: auto; }
     .logo-text { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; color: #0a6b52; }
     .logo-sub { font-size: 11px; color: #e07c2a; font-style: italic; }
-    nav ul { display: flex; gap: 24px; list-style: none; }
+    nav ul { display: flex; align-items: center; gap: 24px; list-style: none; flex-wrap: wrap; }
     nav ul a { text-decoration: none; font-size: 14px; color: #2e5c4a; font-weight: 500; }
     nav ul a:hover { color: #e07c2a; }
     .nav-cta {
       background: #0a6b52; color: white !important;
       padding: 9px 22px; border-radius: 50px; font-size: 13px !important;
+      white-space: nowrap;
     }
 
     /* HERO */
     .hero {
       background: linear-gradient(135deg, #0a6b52, #1ca87e);
-      padding: 80px 50px; color: white;
+      padding: 80px 50px; color: white; width: 100%;
     }
     .hero h1 { font-family: 'Syne', sans-serif; font-size: 48px; font-weight: 800; line-height: 1.1; margin-bottom: 18px; }
     .hero h1 span { color: #f5a84e; }
@@ -53,12 +59,12 @@ body {
       text-decoration: none; display: inline-block;
       border: 2px solid rgba(255,255,255,0.5); margin-left: 12px; cursor: pointer;
     }
-    .hero-stats { display: flex; gap: 40px; margin-top: 48px; }
+    .hero-stats { display: flex; gap: 40px; margin-top: 48px; flex-wrap: wrap; }
     .stat-num { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 700; }
     .stat-label { font-size: 13px; color: rgba(255,255,255,0.65); }
 
     /* COURSES */
-    .section { padding: 70px 50px; }
+    .section { padding: 70px 50px; width: 100%; }
     .section-tag {
       display: inline-block; background: #e8f7f2; color: #0a6b52;
       font-size: 12px; font-weight: 700; padding: 5px 16px;
@@ -77,7 +83,7 @@ body {
     .course-cat { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px; }
     .course-name { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; color: #0d2e22; margin-bottom: 6px; }
     .course-desc { font-size: 12px; color: #6a8a7e; line-height: 1.5; margin-bottom: 14px; }
-    .course-footer { display: flex; align-items: center; justify-content: space-between; }
+    .course-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
     .enroll-btn {
       background: #0a6b52; color: white; border: none;
       border-radius: 50px; padding: 7px 16px; font-size: 12px; font-weight: 600; cursor: pointer;
@@ -86,15 +92,65 @@ body {
     .course-level { font-size: 11px; color: #9ab8ae; }
 
     /* WHY */
-    .why-section { background: white; padding: 70px 50px; }
+    .why-section { background: white; padding: 70px 50px; width: 100%; }
     .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin-top: 40px; }
     .why-card { background: #f8faf9; border-radius: 14px; padding: 24px 22px; border: 1.5px solid #dceee8; }
     .why-num { font-family: 'Syne', sans-serif; font-size: 40px; font-weight: 800; color: #c1e3d9; }
     .why-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; color: #0d2e22; margin: 8px 0 6px; }
     .why-text { font-size: 13px; color: #6a8a7e; line-height: 1.55; }
 
+    /* GALLERY */
+    #gallery { text-align: center; margin-top: 40px; padding: 0 20px; width: 100%; }
+    #gallery h2 { font-family: 'Syne', sans-serif; color: #0a6b52; margin-bottom: 10px; }
+
+    .slider-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 40px 0;
+      width: 100%;
+    }
+    #slider {
+      max-width: 100%;
+      width: 500px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .slider-buttons { display: flex; gap: 12px; margin-top: 12px; }
+    .slider-buttons button { flex: 1; max-width: 120px; }
+
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      background-color: #0a6b52;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover { background-color: #085040; }
+
+    /* PROMO VIDEO */
+    #promo-video {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px 20px 40px;
+      background-color: #f8f9fa;
+      width: 100%;
+    }
+    #promo-video h2 { color: #0a6b52; margin-bottom: 20px; font-family: 'Syne', sans-serif; }
+    #promo-video video {
+      width: 100%;
+      max-width: 800px;
+      height: auto;
+      border-radius: 8px;
+    }
+
     /* CONTACT */
-    .contact-section { background: #0a6b52; padding: 70px 50px; text-align: center; color: white; }
+    .contact-section { background: #0a6b52; padding: 70px 50px; text-align: center; color: white; width: 100%; }
     .contact-section h2 { font-family: 'Syne', sans-serif; font-size: 34px; font-weight: 700; margin-bottom: 12px; }
     .contact-section p { font-size: 16px; color: rgba(255,255,255,0.75); margin-bottom: 36px; }
     .contact-items { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-bottom: 36px; }
@@ -102,127 +158,63 @@ body {
     .contact-icon {
       width: 40px; height: 40px; background: rgba(255,255,255,0.15);
       border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px;
+      flex-shrink: 0;
     }
     .contact-text { font-size: 15px; color: rgba(255,255,255,0.9); }
 
     /* FOOTER */
     footer {
-      background: #072e22; padding: 20px 50px;
+      background: #072e22; padding: 20px 50px; width: 100%;
       display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 8px; text-align: center;
     }
     footer span { font-size: 12px; color: rgba(255,255,255,0.4); }
     footer a { font-size: 12px; color: rgba(255,255,255,0.4); text-decoration: none; }
 
-    #promo-video {
-  text-align: center;
-  margin-top: 40px;
-  padding: 20px;
-  background-color: #f8f9fa;
-}
-#promo-video h2 {
-  color: #0a7b83;
-  margin-bottom: 20px;
-}
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 900px) {
+      .hero h1 { font-size: 38px; }
+      .section-title { font-size: 28px; }
+    }
 
-    #gallery {
-  text-align: center;
-  margin-top: 40px;
-}
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; justify-content: center; text-align: center; }
+      nav ul { justify-content: center; gap: 14px; width: 100%; }
+      .hero { padding: 60px 24px; text-align: center; }
+      .hero p { margin-left: auto; margin-right: auto; }
+      .hero-stats { justify-content: center; gap: 28px; }
+      .btn-outline { margin-left: 0; margin-top: 10px; }
+      .section, .why-section, .contact-section { padding: 50px 24px; }
+      .section-desc { margin-left: auto; margin-right: auto; }
+      #slider { width: 90%; }
+      button { padding: 8px 16px; font-size: 0.9rem; }
+      footer { flex-direction: column; text-align: center; }
+    }
 
-.gallery {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.gallery img {
-  width: 250px;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-
- 
-
-/* Slider image */
-#slider {
-  max-width: 100%;   /* scales down on smaller screens */
-  height: auto;      /* keeps aspect ratio */
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-/* Buttons */
-button {
-  margin: 10px;
-  padding: 10px 20px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 5px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-/* Responsive tweaks */
-@media (max-width: 768px) {
-  #slider {
-    width: 90%;   /* shrink image on tablets */
-  }
-  button {
-    padding: 8px 16px;
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 480px) {
-  #slider {
-    width: 100%;  /* full width on mobile */
-  }
-  button {
-    width: 100%;  /* buttons stack nicely */
-    margin: 5px 0;
-  }
-}
-
-    /* Slider container */
-.slider-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 40px 0;
-}
-
-/* Button group */
-.slider-buttons {
-  display: flex;
-  gap: 12px;
-  margin-top: 12px;
-}
-
-/* Buttons inherit your existing styles */
-.slider-buttons button {
-  flex: 1; /* makes them equal width if space allows */
-  max-width: 120px;
-}
-
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 30px; }
+      .hero p { font-size: 15px; }
+      .btn-primary, .btn-outline { display: block; width: 100%; margin: 8px 0; text-align: center; }
+      .hero-stats { flex-direction: column; gap: 16px; align-items: center; }
+      .section-title { font-size: 24px; }
+      .courses-grid, .why-grid { grid-template-columns: 1fr; }
+      .contact-items { flex-direction: column; gap: 20px; }
+      #slider { width: 100%; }
+      .slider-buttons button { width: 100%; max-width: none; margin: 4px 0; }
+      button { width: 100%; margin: 5px 0; }
+    }
   </style>
 </head>
 <body>
 
   <!-- NAVIGATION -->
   <nav>
-    <div>
+    <div class="nav-brand">
       <img src="logo.png" alt="Eduvision Academy Logo" width="50">
-      <div class="logo-text">EDUVISION ACADEMY</div>
-      <div class="logo-sub">Rapid Solution of Fluency and Creativity</div>
+      <div>
+        <div class="logo-text">EDUVISION ACADEMY</div>
+        <div class="logo-sub">Rapid Solution of Fluency and Creativity</div>
+      </div>
     </div>
     <ul>
       <li><a href="#courses">Courses</a></li>
@@ -387,38 +379,26 @@ button:hover {
     </div>
   </section>
 
-   
+  <!-- GALLERY (single slider, de-duplicated) -->
   <section id="gallery">
-  <h2>Our Gallery</h2>
+    <h2>Our Gallery</h2>
+    <div class="slider-container">
+      <img id="slider" src="1.jpeg" alt="Image Slider">
+      <div class="slider-buttons">
+        <button id="prev">Previous</button>
+        <button id="next">Next</button>
+      </div>
+    </div>
+  </section>
 
-  <div class="slider-container">
-  <img id="slider" src="1.jpg" alt="Image Slider">
-
-  <div class="slider-buttons">
-    <button id="prev">Previous</button>
-    <button id="next">Next</button>
-  </div>
-</div>
-</section>
- 
-
-
+  <!-- PROMO VIDEO (single video, de-duplicated) -->
   <section id="promo-video">
-  <h2>Watch Our Academy in Action</h2>
-  <video width="100%" controls>
-    <source src="eduvid.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-    <video width="100%" controls>
-    <source src="eduvideo.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-    <video width="100%" controls>
-    <source src="eduvlec.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-</section>
-
+    <h2>Watch Our Academy in Action</h2>
+    <video controls>
+      <source src="eduvid.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </section>
 
   <!-- CONTACT -->
   <section class="contact-section" id="contact">
@@ -448,19 +428,19 @@ button:hover {
   </footer>
 
   <script>
-const images = ["1.jpeg","2.jpeg","3.jpeg","4.jpeg","5.jpeg"];
+    const images = ["1.jpeg","2.jpeg","3.jpeg","4.jpeg","5.jpeg"];
+    let currentIndex = 0;
+    const slider = document.getElementById("slider");
 
-let currentIndex = 0;
-const slider = document.getElementById("slider");
+    document.getElementById("next").addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % images.length;
+      slider.src = images[currentIndex];
+    });
 
-document.getElementById("next").addEventListener("click", () => {
-  currentIndex = (currentIndex + 1) % images.length;
-  slider.src = images[currentIndex];
-});
-
-document.getElementById("prev").addEventListener("click", () => {
-  currentIndex = (currentIndex - 1 + images.length) % images.length;
-  slider.src = images[currentIndex];
-});  </script>
+    document.getElementById("prev").addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      slider.src = images[currentIndex];
+    });
+  </script>
 </body>
 </html>
