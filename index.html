@@ -192,7 +192,27 @@ button:hover {
   }
 }
 
-    
+    /* Slider container */
+.slider-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px 0;
+}
+
+/* Button group */
+.slider-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+/* Buttons inherit your existing styles */
+.slider-buttons button {
+  flex: 1; /* makes them equal width if space allows */
+  max-width: 120px;
+}
+
   </style>
 </head>
 <body>
@@ -366,20 +386,21 @@ button:hover {
       </div>
     </div>
   </section>
-  <img id="slider" src="1.jpeg" alt="slider">
-<button id="prev">Previous</button>
-<button id="next">Next</button>
-  
+
+   
   <section id="gallery">
   <h2>Our Gallery</h2>
-  <div class="gallery">
-    <img src="1.jpeg" alt="Classroom Session">
-    <img src="2.jpeg" alt="Student Presentation">
-    <img src="3.jpeg" alt="Academy Event">
-    <img src="4.jpeg" alt="Academy Event">
-    <img src="5.jpeg" alt="Academy Event">
+
+  <div class="slider-container">
+  <img id="slider" src="1.jpg" alt="Image Slider">
+
+  <div class="slider-buttons">
+    <button id="prev">Previous</button>
+    <button id="next">Next</button>
   </div>
+</div>
 </section>
+ 
 
 
   <section id="promo-video">
