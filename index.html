@@ -309,8 +309,7 @@
       </div>
     </div>
   </section>
-  
-<img id="slider" src="1.jpeg" alt="slider">
+  <img id="slider" src="1.jpeg" alt="slider">
 <button id="prev">Previous</button>
 <button id="next">Next</button>
   
@@ -369,13 +368,9 @@
     <span>© 2026 Eduvision Academy · Kigali, Rwanda</span>
     <a href="https://eduvision-academy.onrender.com/">eduvision-academy.onrender.com</a>
   </footer>
-<script>const images = [
-  "1.jpg",
-  "2.jpg",
-  "3.jpg",
-  "4.jpg",
-  "5.jpg"
-];
+
+  <script>
+const images = ["1.jpeg","2.jpeg","3.jpeg","4.jpeg","5.jpeg"];
 
 let currentIndex = 0;
 const slider = document.getElementById("slider");
@@ -388,8 +383,6 @@ document.getElementById("next").addEventListener("click", () => {
 document.getElementById("prev").addEventListener("click", () => {
   currentIndex = (currentIndex - 1 + images.length) % images.length;
   slider.src = images[currentIndex];
-});
-
-  </script>
+});  </script>
 </body>
 </html>
