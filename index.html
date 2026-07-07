@@ -8,29 +8,43 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    html { width: 100%; overflow-x: hidden; }
+
     body {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       margin: 0;
       font-family: 'DM Sans', Arial, sans-serif;
       width: 100%;
+      max-width: 100vw;
       overflow-x: hidden;
+      color: #0d2e22;
+    }
+
+    img, video { max-width: 100%; display: block; }
+
+    /* Shared inner wrapper so content never stretches edge-to-edge on big screens
+       and never overflows on small ones */
+    .container {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
     }
 
     /* NAV */
     nav {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 16px 40px; background: white; width: 100%;
+      padding: 14px clamp(16px, 4vw, 40px); background: white; width: 100%;
       border-bottom: 1.5px solid #d0ece4; position: sticky; top: 0; z-index: 100;
       flex-wrap: wrap; gap: 12px;
     }
     .nav-brand { display: flex; align-items: center; gap: 10px; }
-    .nav-brand img { max-width: 44px; height: auto; }
-    .logo-text { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; color: #0a6b52; }
-    .logo-sub { font-size: 11px; color: #e07c2a; font-style: italic; }
-    nav ul { display: flex; align-items: center; gap: 24px; list-style: none; flex-wrap: wrap; }
+    .nav-brand img { width: 42px; height: 42px; object-fit: contain; flex-shrink: 0; }
+    .logo-text { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 16px; color: #0a6b52; letter-spacing: 0.02em; }
+    .logo-sub { font-size: 10.5px; color: #e07c2a; font-style: italic; }
+    nav ul { display: flex; align-items: center; gap: clamp(12px, 2vw, 24px); list-style: none; flex-wrap: wrap; }
     nav ul a { text-decoration: none; font-size: 14px; color: #2e5c4a; font-weight: 500; }
     nav ul a:hover { color: #e07c2a; }
     .nav-cta {
@@ -42,43 +56,49 @@
     /* HERO */
     .hero {
       background: linear-gradient(135deg, #0a6b52, #1ca87e);
-      padding: 80px 50px; color: white; width: 100%;
+      padding: clamp(48px, 8vw, 90px) clamp(20px, 5vw, 50px);
+      color: white; width: 100%;
     }
-    .hero h1 { font-family: 'Syne', sans-serif; font-size: 48px; font-weight: 800; line-height: 1.1; margin-bottom: 18px; }
+    .hero-inner { width: 100%; max-width: 1180px; margin: 0 auto; }
+    .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(28px, 5vw, 48px); font-weight: 800; line-height: 1.12; margin-bottom: 18px; }
     .hero h1 span { color: #f5a84e; }
-    .hero p { font-size: 17px; color: rgba(255,255,255,0.82); max-width: 520px; line-height: 1.65; margin-bottom: 32px; }
+    .hero p { font-size: clamp(14px, 2vw, 17px); color: rgba(255,255,255,0.82); max-width: 520px; line-height: 1.65; margin-bottom: 32px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
     .btn-primary {
       background: #e07c2a; color: white; padding: 14px 30px;
       border-radius: 50px; font-size: 15px; font-weight: 600;
       text-decoration: none; display: inline-block; border: none; cursor: pointer;
+      text-align: center;
     }
     .btn-primary:hover { background: #c96d1f; }
     .btn-outline {
       background: transparent; color: white; padding: 14px 30px;
       border-radius: 50px; font-size: 15px; font-weight: 500;
       text-decoration: none; display: inline-block;
-      border: 2px solid rgba(255,255,255,0.5); margin-left: 12px; cursor: pointer;
+      border: 2px solid rgba(255,255,255,0.5); cursor: pointer;
+      text-align: center;
     }
-    .hero-stats { display: flex; gap: 40px; margin-top: 48px; flex-wrap: wrap; }
-    .stat-num { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 700; }
+    .hero-stats { display: flex; flex-wrap: wrap; gap: clamp(20px, 4vw, 40px); margin-top: 48px; }
+    .stat-num { font-family: 'Syne', sans-serif; font-size: clamp(24px, 3vw, 32px); font-weight: 700; }
     .stat-label { font-size: 13px; color: rgba(255,255,255,0.65); }
 
     /* COURSES */
-    .section { padding: 70px 50px; width: 100%; }
+    .section { padding: clamp(44px, 7vw, 70px) clamp(20px, 5vw, 50px); width: 100%; }
+    .section-inner { width: 100%; max-width: 1180px; margin: 0 auto; }
     .section-tag {
       display: inline-block; background: #e8f7f2; color: #0a6b52;
       font-size: 12px; font-weight: 700; padding: 5px 16px;
       border-radius: 50px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em;
     }
-    .section-title { font-family: 'Syne', sans-serif; font-size: 34px; font-weight: 700; color: #0d2e22; margin-bottom: 10px; }
-    .section-desc { font-size: 16px; color: #5a7a6e; max-width: 500px; line-height: 1.6; margin-bottom: 40px; }
+    .section-title { font-family: 'Syne', sans-serif; font-size: clamp(24px, 3.5vw, 34px); font-weight: 700; color: #0d2e22; margin-bottom: 10px; }
+    .section-desc { font-size: 15px; color: #5a7a6e; max-width: 500px; line-height: 1.6; margin-bottom: 40px; }
     .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 20px; }
     .course-card {
       background: white; border-radius: 16px; overflow: hidden;
       border: 1.5px solid #dceee8; transition: transform 0.2s;
     }
     .course-card:hover { transform: translateY(-4px); }
-    .course-banner { height: 90px; display: flex; align-items: center; justify-content: center; font-size: 36px; }
+    .course-banner { height: 80px; display: flex; align-items: center; justify-content: center; font-size: 32px; }
     .course-body { padding: 16px 18px 18px; }
     .course-cat { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px; }
     .course-name { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; color: #0d2e22; margin-bottom: 6px; }
@@ -92,40 +112,48 @@
     .course-level { font-size: 11px; color: #9ab8ae; }
 
     /* WHY */
-    .why-section { background: white; padding: 70px 50px; width: 100%; }
-    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin-top: 40px; }
-    .why-card { background: #f8faf9; border-radius: 14px; padding: 24px 22px; border: 1.5px solid #dceee8; }
-    .why-num { font-family: 'Syne', sans-serif; font-size: 40px; font-weight: 800; color: #c1e3d9; }
+    .why-section { background: white; padding: clamp(44px, 7vw, 70px) clamp(20px, 5vw, 50px); width: 100%; }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 40px; }
+    .why-card { background: #f8faf9; border-radius: 14px; padding: 22px 20px; border: 1.5px solid #dceee8; }
+    .why-num { font-family: 'Syne', sans-serif; font-size: 34px; font-weight: 800; color: #c1e3d9; }
     .why-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; color: #0d2e22; margin: 8px 0 6px; }
     .why-text { font-size: 13px; color: #6a8a7e; line-height: 1.55; }
 
-    /* GALLERY */
-    #gallery { text-align: center; margin-top: 40px; padding: 0 20px; width: 100%; }
-    #gallery h2 { font-family: 'Syne', sans-serif; color: #0a6b52; margin-bottom: 10px; }
+    /* GALLERY — fixed aspect-ratio frame so photos never blow up huge on desktop */
+    #gallery { text-align: center; margin-top: 10px; padding: clamp(30px, 6vw, 60px) clamp(20px, 5vw, 50px); width: 100%; }
+    #gallery h2 { font-family: 'Syne', sans-serif; color: #0a6b52; margin-bottom: 22px; font-size: clamp(20px, 3vw, 28px); }
 
     .slider-container {
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin: 40px 0;
       width: 100%;
     }
-    #slider {
-      max-width: 100%;
-      width: 500px;
-      height: auto;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    .slider-frame {
+      width: 100%;
+      max-width: 520px;
+      aspect-ratio: 4 / 3;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(10,107,82,0.18);
+      background: #e8f7f2;
     }
-    .slider-buttons { display: flex; gap: 12px; margin-top: 12px; }
+    #slider {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 0;
+      box-shadow: none;
+    }
+    .slider-buttons { display: flex; gap: 12px; margin-top: 16px; }
     .slider-buttons button { flex: 1; max-width: 120px; }
 
     button {
-      margin: 10px;
+      margin: 0;
       padding: 10px 20px;
-      font-size: 1rem;
+      font-size: 0.95rem;
       border: none;
-      border-radius: 5px;
+      border-radius: 50px;
       background-color: #0a6b52;
       color: white;
       cursor: pointer;
@@ -133,38 +161,48 @@
     }
     button:hover { background-color: #085040; }
 
-    /* PROMO VIDEO */
+    /* PROMO VIDEO — capped width so it doesn't dominate the page on desktop */
     #promo-video {
       text-align: center;
-      margin-top: 40px;
-      padding: 20px 20px 40px;
+      margin-top: 10px;
+      padding: clamp(30px, 6vw, 60px) clamp(20px, 5vw, 50px);
       background-color: #f8f9fa;
       width: 100%;
     }
-    #promo-video h2 { color: #0a6b52; margin-bottom: 20px; font-family: 'Syne', sans-serif; }
+    #promo-video h2 { color: #0a6b52; margin-bottom: 22px; font-family: 'Syne', sans-serif; font-size: clamp(20px, 3vw, 28px); }
+    .video-frame {
+      width: 100%;
+      max-width: 640px;
+      margin: 0 auto;
+      aspect-ratio: 16 / 9;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+      background: #000;
+    }
     #promo-video video {
       width: 100%;
-      max-width: 800px;
-      height: auto;
-      border-radius: 8px;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 0;
     }
 
     /* CONTACT */
-    .contact-section { background: #0a6b52; padding: 70px 50px; text-align: center; color: white; width: 100%; }
-    .contact-section h2 { font-family: 'Syne', sans-serif; font-size: 34px; font-weight: 700; margin-bottom: 12px; }
-    .contact-section p { font-size: 16px; color: rgba(255,255,255,0.75); margin-bottom: 36px; }
-    .contact-items { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-bottom: 36px; }
+    .contact-section { background: #0a6b52; padding: clamp(44px, 7vw, 70px) clamp(20px, 5vw, 50px); text-align: center; color: white; width: 100%; }
+    .contact-section h2 { font-family: 'Syne', sans-serif; font-size: clamp(24px, 3.5vw, 34px); font-weight: 700; margin-bottom: 12px; }
+    .contact-section p { font-size: 15px; color: rgba(255,255,255,0.75); margin-bottom: 36px; }
+    .contact-items { display: flex; justify-content: center; gap: clamp(20px, 4vw, 40px); flex-wrap: wrap; margin-bottom: 36px; }
     .contact-item { display: flex; align-items: center; gap: 10px; }
     .contact-icon {
       width: 40px; height: 40px; background: rgba(255,255,255,0.15);
       border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px;
       flex-shrink: 0;
     }
-    .contact-text { font-size: 15px; color: rgba(255,255,255,0.9); }
+    .contact-text { font-size: 14px; color: rgba(255,255,255,0.9); }
 
     /* FOOTER */
     footer {
-      background: #072e22; padding: 20px 50px; width: 100%;
+      background: #072e22; padding: 18px clamp(16px, 4vw, 50px); width: 100%;
       display: flex; justify-content: space-between; align-items: center;
       flex-wrap: wrap; gap: 8px; text-align: center;
     }
@@ -173,35 +211,30 @@
 
     /* ============ RESPONSIVE ============ */
     @media (max-width: 900px) {
-      .hero h1 { font-size: 38px; }
-      .section-title { font-size: 28px; }
+      .courses-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
     }
 
     @media (max-width: 768px) {
-      nav { padding: 14px 20px; justify-content: center; text-align: center; }
+      nav { padding: 14px 18px; justify-content: center; text-align: center; }
       nav ul { justify-content: center; gap: 14px; width: 100%; }
-      .hero { padding: 60px 24px; text-align: center; }
+      .hero { text-align: center; }
       .hero p { margin-left: auto; margin-right: auto; }
-      .hero-stats { justify-content: center; gap: 28px; }
-      .btn-outline { margin-left: 0; margin-top: 10px; }
-      .section, .why-section, .contact-section { padding: 50px 24px; }
+      .hero-actions { justify-content: center; }
+      .hero-stats { justify-content: center; }
       .section-desc { margin-left: auto; margin-right: auto; }
-      #slider { width: 90%; }
-      button { padding: 8px 16px; font-size: 0.9rem; }
+      .slider-frame { max-width: 420px; }
+      .video-frame { max-width: 100%; }
       footer { flex-direction: column; text-align: center; }
     }
 
     @media (max-width: 480px) {
-      .hero h1 { font-size: 30px; }
-      .hero p { font-size: 15px; }
-      .btn-primary, .btn-outline { display: block; width: 100%; margin: 8px 0; text-align: center; }
-      .hero-stats { flex-direction: column; gap: 16px; align-items: center; }
-      .section-title { font-size: 24px; }
+      .hero-actions { flex-direction: column; }
+      .btn-primary, .btn-outline { width: 100%; }
+      .hero-stats { gap: 20px 32px; }
       .courses-grid, .why-grid { grid-template-columns: 1fr; }
-      .contact-items { flex-direction: column; gap: 20px; }
-      #slider { width: 100%; }
+      .contact-items { flex-direction: column; gap: 18px; }
+      .slider-frame { max-width: 100%; aspect-ratio: 1 / 1; }
       .slider-buttons button { width: 100%; max-width: none; margin: 4px 0; }
-      button { width: 100%; margin: 5px 0; }
     }
   </style>
 </head>
@@ -210,7 +243,7 @@
   <!-- NAVIGATION -->
   <nav>
     <div class="nav-brand">
-      <img src="logo.png" alt="Eduvision Academy Logo" width="50">
+      <img src="logo.png" alt="Eduvision Academy Logo">
       <div>
         <div class="logo-text">EDUVISION ACADEMY</div>
         <div class="logo-sub">Rapid Solution of Fluency and Creativity</div>
@@ -226,164 +259,174 @@
 
   <!-- HERO -->
   <section class="hero">
-    <h1>Learn Skills That<br><span>Shape Your Future</span></h1>
-    <p>From languages to driving, photography to graphic design — Eduvision Academy gives you practical training that opens real doors in Rwanda and beyond.</p>
-    <a href="#courses" class="btn-primary">Browse Courses</a>
-    <a href="#contact" class="btn-outline">Contact Us</a>
-    <div class="hero-stats">
-      <div><div class="stat-num">9+</div><div class="stat-label">Courses offered</div></div>
-      <div><div class="stat-num">3</div><div class="stat-label">Languages taught</div></div>
-      <div><div class="stat-num">100%</div><div class="stat-label">Practical training</div></div>
+    <div class="hero-inner">
+      <h1>Learn Skills That<br><span>Shape Your Future</span></h1>
+      <p>From languages to driving, photography to graphic design — Eduvision Academy gives you practical training that opens real doors in Rwanda and beyond.</p>
+      <div class="hero-actions">
+        <a href="#courses" class="btn-primary">Browse Courses</a>
+        <a href="#contact" class="btn-outline">Contact Us</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">9+</div><div class="stat-label">Courses offered</div></div>
+        <div><div class="stat-num">3</div><div class="stat-label">Languages taught</div></div>
+        <div><div class="stat-num">100%</div><div class="stat-label">Practical training</div></div>
+      </div>
     </div>
   </section>
 
   <!-- COURSES -->
   <section class="section" id="courses">
-    <div class="section-tag">Our Courses</div>
-    <div class="section-title">What Would You Like to Learn?</div>
-    <p class="section-desc">All classes are practical, instructor-led, and designed for real-world results.</p>
-    <div class="courses-grid">
+    <div class="section-inner">
+      <div class="section-tag">Our Courses</div>
+      <div class="section-title">What Would You Like to Learn?</div>
+      <p class="section-desc">All classes are practical, instructor-led, and designed for real-world results.</p>
+      <div class="courses-grid">
 
-      <div class="course-card">
-        <div class="course-banner" style="background:#e8f5ff">🌍</div>
-        <div class="course-body">
-          <div class="course-cat" style="color:#1a7abf">Languages</div>
-          <div class="course-name">English / Icyongereza</div>
-          <div class="course-desc">Speak with confidence for work, travel, and daily life.</div>
-          <div class="course-footer">
-            <button class="enroll-btn" onclick="window.location='enroll.html'">Enroll</button>
-            <span class="course-level">All levels</span>
+        <div class="course-card">
+          <div class="course-banner" style="background:#e8f5ff">🌍</div>
+          <div class="course-body">
+            <div class="course-cat" style="color:#1a7abf">Languages</div>
+            <div class="course-name">English / Icyongereza</div>
+            <div class="course-desc">Speak with confidence for work, travel, and daily life.</div>
+            <div class="course-footer">
+              <button class="enroll-btn" onclick="window.location='enroll.html'">Enroll</button>
+              <span class="course-level">All levels</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="course-card">
-        <div class="course-banner" style="background:#fff4e6">🇫🇷</div>
-        <div class="course-body">
-          <div class="course-cat" style="color:#c96d1f">Languages</div>
-          <div class="course-name">French / Igifaransa</div>
-          <div class="course-desc">Professional and conversational French for modern Rwanda.</div>
-          <div class="course-footer">
-            <button class="enroll-btn" onclick="window.location='enroll.html'">Enroll</button>
-            <span class="course-level">Beginner+</span>
+        <div class="course-card">
+          <div class="course-banner" style="background:#fff4e6">🇫🇷</div>
+          <div class="course-body">
+            <div class="course-cat" style="color:#c96d1f">Languages</div>
+            <div class="course-name">French / Igifaransa</div>
+            <div class="course-desc">Professional and conversational French for modern Rwanda.</div>
+            <div class="course-footer">
+              <button class="enroll-btn" onclick="window.location='enroll.html'">Enroll</button>
+              <span class="course-level">Beginner+</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="course-card">
-        <div class="course-banner" style="background:#ffeeed">🇨🇳</div>
-        <div class="course-body">
-          <div class="course-cat" style="color:#b53030">Languages</div>
-          <div class="course-name">Chinese / Igishinwa</div>
-          <div class="course-desc">Mandarin basics for business and communication.</div>
-          <div class="course-footer">
-            <button class="enroll-btn" onclick="window.location='enroll.html'">Enroll</button>
-            <span class="course-level">Beginner</span>
+        <div class="course-card">
+          <div class="course-banner" style="background:#ffeeed">🇨🇳</div>
+          <div class="course-body">
+            <div class="course-cat" style="color:#b53030">Languages</div>
+            <div class="course-name">Chinese / Igishinwa</div>
+            <div class="course-desc">Mandarin basics for business and communication.</div>
+            <div class="course-footer">
+              <button class="enroll-btn" onclick="window.location='enroll.html'">Enroll</button>
+              <span class="course-level">Beginner</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="course-card">
-        <div class="course-banner" style="background:#e8f7f2">🚗</div>
-        <div class="course-body">
-          <div class="course-cat" style="color:#0a6b52">Driving</div>
-          <div class="course-name">Driving License</div>
-          <div class="course-desc">Traffic laws, road signs, and practical driving skills.</div>
-          <div class="course-footer">
-            <button class="enroll-btn" onclick="window.location='enroll.html'">Enroll</button>
-            <span class="course-level">No experience needed</span>
+        <div class="course-card">
+          <div class="course-banner" style="background:#e8f7f2">🚗</div>
+          <div class="course-body">
+            <div class="course-cat" style="color:#0a6b52">Driving</div>
+            <div class="course-name">Driving License</div>
+            <div class="course-desc">Traffic laws, road signs, and practical driving skills.</div>
+            <div class="course-footer">
+              <button class="enroll-btn" onclick="window.location='enroll.html'">Enroll</button>
+              <span class="course-level">No experience needed</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="course-card">
-        <div class="course-banner" style="background:#f2eeff">💻</div>
-        <div class="course-body">
-          <div class="course-cat" style="color:#5340b8">Technology</div>
-          <div class="course-name">Computer Skills</div>
-          <div class="course-desc">MS Office, internet, and essential computer productivity.</div>
-          <div class="course-footer">
-            <button class="enroll-btn" onclick="window.location='enroll.html'">Enroll</button>
-            <span class="course-level">All levels</span>
+        <div class="course-card">
+          <div class="course-banner" style="background:#f2eeff">💻</div>
+          <div class="course-body">
+            <div class="course-cat" style="color:#5340b8">Technology</div>
+            <div class="course-name">Computer Skills</div>
+            <div class="course-desc">MS Office, internet, and essential computer productivity.</div>
+            <div class="course-footer">
+              <button class="enroll-btn" onclick="window.location='enroll.html'">Enroll</button>
+              <span class="course-level">All levels</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="course-card">
-        <div class="course-banner" style="background:#fff0e4">📷</div>
-        <div class="course-body">
-          <div class="course-cat" style="color:#c96d1f">Creative Arts</div>
-          <div class="course-name">Photography</div>
-          <div class="course-desc">Camera basics, lighting, exposure types, and basic editing.</div>
-          <div class="course-footer">
-            <button class="enroll-btn" onclick="window.location='enroll.html'">Enroll</button>
-            <span class="course-level">Beginner</span>
+        <div class="course-card">
+          <div class="course-banner" style="background:#fff0e4">📷</div>
+          <div class="course-body">
+            <div class="course-cat" style="color:#c96d1f">Creative Arts</div>
+            <div class="course-name">Photography</div>
+            <div class="course-desc">Camera basics, lighting, exposure types, and basic editing.</div>
+            <div class="course-footer">
+              <button class="enroll-btn" onclick="window.location='enroll.html'">Enroll</button>
+              <span class="course-level">Beginner</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="course-card">
-        <div class="course-banner" style="background:#fff0e4">🎬</div>
-        <div class="course-body">
-          <div class="course-cat" style="color:#c96d1f">Creative Arts</div>
-          <div class="course-name">Videography</div>
-          <div class="course-desc">Professional video shooting and production fundamentals.</div>
-          <div class="course-footer">
-            <button class="enroll-btn" onclick="window.location='enroll.html'">Enroll</button>
-            <span class="course-level">Beginner+</span>
+        <div class="course-card">
+          <div class="course-banner" style="background:#fff0e4">🎬</div>
+          <div class="course-body">
+            <div class="course-cat" style="color:#c96d1f">Creative Arts</div>
+            <div class="course-name">Videography</div>
+            <div class="course-desc">Professional video shooting and production fundamentals.</div>
+            <div class="course-footer">
+              <button class="enroll-btn" onclick="window.location='enroll.html'">Enroll</button>
+              <span class="course-level">Beginner+</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="course-card">
-        <div class="course-banner" style="background:#e8f5ff">🎨</div>
-        <div class="course-body">
-          <div class="course-cat" style="color:#1a7abf">Creative Arts</div>
-          <div class="course-name">Graphic Design</div>
-          <div class="course-desc">Design tools, visual communication, and branding basics.</div>
-          <div class="course-footer">
-            <button class="enroll-btn" onclick="window.location='enroll.html'">Enroll</button>
-            <span class="course-level">All levels</span>
+        <div class="course-card">
+          <div class="course-banner" style="background:#e8f5ff">🎨</div>
+          <div class="course-body">
+            <div class="course-cat" style="color:#1a7abf">Creative Arts</div>
+            <div class="course-name">Graphic Design</div>
+            <div class="course-desc">Design tools, visual communication, and branding basics.</div>
+            <div class="course-footer">
+              <button class="enroll-btn" onclick="window.location='enroll.html'">Enroll</button>
+              <span class="course-level">All levels</span>
+            </div>
           </div>
         </div>
-      </div>
 
+      </div>
     </div>
   </section>
 
   <!-- WHY US -->
   <section class="why-section" id="why">
-    <div class="section-tag">Why Choose Us</div>
-    <div class="section-title">Built for Your Success</div>
-    <div class="why-grid">
-      <div class="why-card">
-        <div class="why-num">01</div>
-        <div class="why-title">Hands-on Training</div>
-        <div class="why-text">Every course is practical and instructor-led — you leave with real skills you can use immediately.</div>
-      </div>
-      <div class="why-card">
-        <div class="why-num">02</div>
-        <div class="why-title">Expert Instructors</div>
-        <div class="why-text">Our trainers have professional experience in every field they teach, from languages to design.</div>
-      </div>
-      <div class="why-card">
-        <div class="why-num">03</div>
-        <div class="why-title">Multiple Disciplines</div>
-        <div class="why-text">Languages, driving, tech, creative arts — all under one roof for your convenience.</div>
-      </div>
-      <div class="why-card">
-        <div class="why-num">04</div>
-        <div class="why-title">Community Focus</div>
-        <div class="why-text">Based in Rwanda, designed for Rwandans — our programs fit your local context and goals.</div>
+    <div class="section-inner">
+      <div class="section-tag">Why Choose Us</div>
+      <div class="section-title">Built for Your Success</div>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-num">01</div>
+          <div class="why-title">Hands-on Training</div>
+          <div class="why-text">Every course is practical and instructor-led — you leave with real skills you can use immediately.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-num">02</div>
+          <div class="why-title">Expert Instructors</div>
+          <div class="why-text">Our trainers have professional experience in every field they teach, from languages to design.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-num">03</div>
+          <div class="why-title">Multiple Disciplines</div>
+          <div class="why-text">Languages, driving, tech, creative arts — all under one roof for your convenience.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-num">04</div>
+          <div class="why-title">Community Focus</div>
+          <div class="why-text">Based in Rwanda, designed for Rwandans — our programs fit your local context and goals.</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- GALLERY (single slider, de-duplicated) -->
+  <!-- GALLERY (single slider, de-duplicated, framed so images stay a sensible size) -->
   <section id="gallery">
     <h2>Our Gallery</h2>
     <div class="slider-container">
-      <img id="slider" src="1.jpeg" alt="Image Slider">
+      <div class="slider-frame">
+        <img id="slider" src="1.jpeg" alt="Image Slider">
+      </div>
       <div class="slider-buttons">
         <button id="prev">Previous</button>
         <button id="next">Next</button>
@@ -391,13 +434,15 @@
     </div>
   </section>
 
-  <!-- PROMO VIDEO (single video, de-duplicated) -->
+  <!-- PROMO VIDEO (single video, de-duplicated, framed so it doesn't dominate the page) -->
   <section id="promo-video">
     <h2>Watch Our Academy in Action</h2>
-    <video controls>
-      <source src="eduvid.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
+    <div class="video-frame">
+      <video controls>
+        <source src="eduvid.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
   </section>
 
   <!-- CONTACT -->
