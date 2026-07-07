@@ -135,6 +135,63 @@
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
+
+    /* Container styling */
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Slider image */
+#slider {
+  max-width: 100%;   /* scales down on smaller screens */
+  height: auto;      /* keeps aspect ratio */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Buttons */
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  #slider {
+    width: 90%;   /* shrink image on tablets */
+  }
+  button {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #slider {
+    width: 100%;  /* full width on mobile */
+  }
+  button {
+    width: 100%;  /* buttons stack nicely */
+    margin: 5px 0;
+  }
+}
+
     
   </style>
 </head>
